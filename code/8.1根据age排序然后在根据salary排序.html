@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script>
+        var arr = [
+            {
+                name:'张三',
+                age:15,
+                salary:100
+            },
+            {
+                name:'李四',
+                age:25,
+                salary:30000
+            },
+            {
+                name:'王五',
+                age:35,
+                salary:22200
+            },
+            {
+                name:'赵六',
+                age:10,
+                salary:50
+            },
+            {
+                name:'陈七',
+                age:55,
+                salary:1200
+            },
+            {
+                name:'陈8',
+                age:55,
+                salary:1000
+            },
+            {
+                name:'黄八',
+                age:25,
+                salary:1200
+            },
+            {
+                name:'dffw',
+                age:25,
+                salary:122200
+            },
+            {
+                name:'呵呵',
+                age:25,
+                salary:1200
+            }
+        ];
+        var sortArr = arr.sort((a,b)=>a.age-b.age);
+        var hash={};
+        var arr=[];
+        var n=-1;
+        for(var i=0;i<sortArr.length;i++){
+            
+            if(!hash[sortArr[i].age]){
+                n++;
+                hash[sortArr[i].age]=true;
+                arr[n]=[];
+            };
+            arr[n].push(sortArr[i]);
+
+            if(arr[n].length >1){
+                arr[n]=arr[n].sort((a,b)=>a.salary -b.salary);
+            }
+        }
+        var newArr = [].concat.apply([],arr);
+        console.log(newArr);
+        
+
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

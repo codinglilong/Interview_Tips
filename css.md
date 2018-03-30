@@ -21,3 +21,8 @@
 2. relative：相对定位，处在正常的文档流中，但是能被top、left属性控制，以他原来的位置为基准偏移。
 3. absolute：绝对定位，脱离文档流，根据父容器为基准进行偏移。如果父容器没有设置position为relative和absolute，那么偏移是以body为依据。
 4. fixed：固定定位，脱离文档流，始终是以body为依据，元素会一直固定在这个位置。窗口滚动不会改变位置。
+
+## css层叠上下文
+```
+负z-index < 块 < 浮动 < 行内块 < 行内 < 定位 < z-index:auto或者z-index:0 < 大于0的z-index
+```

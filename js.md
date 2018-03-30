@@ -73,6 +73,11 @@ var p = new Person('张三');
 
 ## 异步
 
+### Promise三种状态
+1. pending(进行中)
+2. fulfilled(已成功)
+3. rejected(失败)
+
 ## 单线程
 
 ## 未分类
@@ -103,7 +108,17 @@ var p = new Person('张三');
 1. `window.onload` 和 `DOMContentLoaded`的区别？
 2. 用js创建10个<a>标签，点击的时候弹出来对应的序号
 
+### 类库和框架有什么区别
+
 ## Ajax
+### post与get的区别
+### 如何封装一个ajax
+### XMLHttpRequest对象中的readystate每个阶段状态代表什么
+### 常见的HTTP状态码
+### 如何跨域
+### 什么是jsonp以及优缺点
+### 什么是RESTful架构
+### 常用的HTTP动词（括号里是对应的SQL命令）
 
 ## 事件绑定
 
