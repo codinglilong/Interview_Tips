@@ -1,10 +1,11 @@
 # 代码题
 
 ## 元素垂直水平居中
+
 > 详情见页面1
 
 1. 需要父盒子子盒子高度，文字水平居中
-    ```
+    ```css
     .box{
         position: relative;
         height:100%
@@ -24,7 +25,7 @@
     ```
 
 2. 利用css3 transform的translate属性来定位,不需要子盒子高度，但是需要父盒子高度
-    ```
+    ```css
     .box{
         position: relative;
         height:100%;
@@ -41,7 +42,7 @@
     ```
 
 3. 需要设置子盒子宽高，然后margin-left和margin-top减去子盒子的宽高，需要计算
-    ```
+    ```css
     .box {
         position: relative;
         height: 100%;
@@ -59,7 +60,7 @@
     ```
 
 4. 利用css3 flex弹性盒子来实现，最为简洁
-    ```
+    ```css
     .box {
         display: flex;
         justify-content: center;
@@ -73,10 +74,11 @@
     ```
 
 ## 左侧固定右侧自适应
+
 > 详情见页面2
 
 1. 方法一.
-    ```
+    ```css
     .box .left{
         height: 300px;
         width: 400px;
@@ -91,7 +93,7 @@
     ```
 
 2. 利用css3 中的计算属性
-    ```
+    ```css
     .box .left{
         height: 300px;
         width: 400px;
@@ -107,7 +109,7 @@
     ```
 
 3. 利用css3 中的flex布局
-    ```
+    ```css
     .box{
         display: flex;
     }
@@ -125,10 +127,12 @@
     ```
 
 ## 将下列26字母十进制互转
+
 > 详情见页面3
 
 A=1,B=2,3=C,26=Z,27=AA,28=AB,29=AC...
-```
+
+```javascript
 //讲输入的字母传转换为十进制
 
 function strToNumberFor26(str){
@@ -158,16 +162,19 @@ console.log(numberToStrFor26(200));
 ```
 
 ## 多维数组转换为一维数组
+
 > 详情见页面4
 
 1. 缺点：转换后数组中的每项为字符串
-```
+
+```javascript
 var arr =[1,4,2,[9,2,4,[7,3,2],[4,1]]];
 console.log(arr.join(',').split(','));
 ```
 
 2. 递归
-```
+
+```Javascript
 var arr =[1,4,2,[9,2,4,[7,3,2],[4,1]]];
 var newArr=[];
 function fun(arr){
@@ -186,7 +193,8 @@ console.log(newArr);
 ```
 
 3. 利用es6和reduce
-```
+
+```Javascript
 var arr =[1,4,2,[9,2,4,[7,3,2],[4,1]]];
 const flatten = arr =>arr.reduce(
     (acc,val)=>acc.concat(Array.isArray(val)?flatten(val):val),[]
@@ -195,9 +203,10 @@ console.log(flatten(arr));
 ```
 
 ## for循环正确的输出0，1，2
+
 > 详情见页面5
 
-```
+```Javascript
 for (var i = 0; i < 3; i++) {
     setTimeout(function(){
         console.log(i);
@@ -205,8 +214,10 @@ for (var i = 0; i < 3; i++) {
 }
 //输出3，3，3，正确要输出0，1，2
 ```
+
 1. 利用es6 let块作用域解决
-```
+
+```Javascript
 for (let i = 0; i < 3; i++) {
     setTimeout(function(){
         console.log(i);
@@ -215,7 +226,8 @@ for (let i = 0; i < 3; i++) {
 ```
 
 2. 利用闭包
-```
+
+```Javascript
 for (var i = 0; i < 3; i++) {
     (function(i){
         setTimeout(function(){
@@ -226,9 +238,10 @@ for (var i = 0; i < 3; i++) {
 ```
 
 ## 冒泡排序
+
 > 详情见页面6
 
-```
+```Javascript
 var arr=[1,2,3,4,5,6];
 function bubbleSort(arr){
     for (let i = 0; i < arr.length-1; i++) {
@@ -244,7 +257,6 @@ function bubbleSort(arr){
         if(flag){
             break;
         }
-        
     }
     return arr;
 }
@@ -252,9 +264,10 @@ console.log(bubbleSort(arr));
 ```
 
 ## 快速排序
+
 > 详情见页面7
 
-```
+```javascript
 var arr=[5,8,4,7,2,6];
 function quickSort(arr){
     if(arr.length<=1) return arr;
@@ -268,9 +281,12 @@ function quickSort(arr){
         }else{
             right.push(arr[i])
         }
-        
     }
     return quickSort(left).concat(middleValue,quickSort(right));
 }
 console.log(quickSort(arr));
 ```
+
+## CSS3实现一个扇形
+
+> 详情见页面8
