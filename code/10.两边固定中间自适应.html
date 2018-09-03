@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            /* height: 100%; */
+        }
+        .left,.right,.center{
+            height: 200px;
+        }
+        .left,.right{
+            width: 300px;
+        }
+        .left{
+            background-color: yellow;
+        }
+        .right{
+            background-color: skyblue;
+        }
+    </style>
+</head>
+<body>
+    <!-- <section>
+        <style>
+            .left,.right{
+                position: absolute;
+                top: 0;
+            }
+            .left{
+                left: 0;
+            }
+            .right{
+                right: 0;
+            }
+            .center{
+                margin: 0 300px;
+            }
+        </style>
+        <article class="layout-position">
+            <div class="left"></div>
+            <div class="center">
+                <h1>1.绝对定位</h1>
+            </div>
+            <div class="right"></div>
+        </article>
+    </section> -->
+    <!-- <section>
+        <style>
+            .left{
+                float: left;
+            }
+            .right{
+                float:right;
+            }
+            .center{
+                margin: 0 300px;
+            }
+        </style>
+        <article class="layout-float">
+            <div class="left"></div>
+            <div class="right"></div>
+            <div class="center">
+                <h1>2.浮动布局</h1>
+            </div>
+        </article>
+    </section> -->
+
+    <section>
+        <style>
+            .layout-flex{
+                display:flex;
+            }
+            .center{
+                flex: 1;
+            }
+        </style>
+        <article class="layout-flex">
+            <div class="left"></div>
+            <div class="center">
+                <h1>3.flex布局</h1>
+            </div>
+            <div class="right"></div>
+        </article>
+    </section>
+
+</body>
+</html>

@@ -164,3 +164,22 @@ function listerner(){
 
 1. `Provider`组件接受`redux`的`store`作为`props`，然后通过`context`往下传。
 2. `connect`函数收到`Provider`传出的`store`，然后接受三个参数`mapStateToProps`，`mapDispatchToProps`和组件，并将`state`和`actionCreator`以`props`传入组件，这时组件就可以调用`actionCreator`函数来触发`reducer`函数返回新的`state`，`connect`监听到`state`变化调用`setState`更新组件并将新的state传入组件。
+
+## React、VUE和angular三者区别
+
+1. vue API设计上简单，语法简单，学习成本低
+2. angular是一个整体框架，学习曲线很陡峭。
+3. react和VUE都使用虚拟DOM
+4. angular双向数据流，react单向数据流，vue都可以
+5. 社区支持度react第一，vue其次，angular最后
+6. 三者都是组件化开发
+
+## React 与jQuery区别
+
+1. 在React中，只有当事件发生，`state`改变，之后，React自动调用`render()`来更新UI
+2. 每个事件不需要担心哪一部分`DOM`发生变化，他们只需要设置`state`就可以了
+3. jQuery没有中间过渡层`state`,我们需要花费很大的精力解决他们之间相互的联系
+4. React可以把各个UI组件独立出来，有利于提高UI组件的复用率同时降低各个UI组件的耦合
+5. 新手操作DOM时很难写出高效而又优雅的代码，从而使得前端代码满满变的越来越难以维护
+
+React适合用在那些DOM操作复杂的单页面应用，有利于提高代码可读性以及提高页面性能，jQuery则是个用来帮你完成一些基本操作的工具库。

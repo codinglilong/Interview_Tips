@@ -73,6 +73,87 @@
     }
     ```
 
+## 两边固定中间自适应
+
+> 详情见页面10
+
+全局样式
+
+```html
+<style>
+    *{
+        padding: 0;
+        margin: 0;
+        height: 100%;
+    }
+    .left,.right,.center{
+        height: 200px;
+    }
+    .left,.right{
+        width: 300px;
+    }
+    .left{
+        background-color: yellow;
+    }
+    .right{
+        background-color: skyblue;
+    }
+</style>
+```
+
+1. 方法一：绝对定位
+    ```html
+    <section>
+        <style>
+            .left,.right{
+                position: absolute;
+                top: 0;
+            }
+            .left{
+                left: 0;
+            }
+            .right{
+                right: 0;
+            }
+            .center{
+                margin: 0 300px;
+            }
+        </style>
+        <article class="layout-position-margin">
+            <div class="left"></div>
+            <div class="center">
+                <h1>1.绝对定位</h1>
+            </div>
+            <div class="right"></div>
+        </article>
+    </section>
+    ```
+
+2. 方法二：浮动布局
+    ```html
+    <section>
+        <style>
+            .left{
+                float: left;
+            }
+            .right{
+                float:right;
+            }
+            .center{
+                margin: 0 300px;
+            }
+        </style>
+        <article class="layout-float">
+            <div class="left"></div>
+            <div class="right"></div>
+            <div class="center">
+                <h1>2.浮动布局</h1>
+            </div>
+        </article>
+    </section>
+    ```
+
+
 ## 左侧固定右侧自适应
 
 > 详情见页面2
@@ -121,6 +202,22 @@
     }
     .box .right{
         flex: 1;
+        height: 300px;
+        background-color:rebeccapurple;
+    }
+    ```
+
+4. 利用后css3中的grid布局
+    ```css
+    .box{
+        display: grid;
+        grid-template-columns: 400px auto;
+    }
+    .box .left{
+        height: 300px;
+        background-color:red;
+    }
+    .box .right{
         height: 300px;
         background-color:rebeccapurple;
     }
@@ -290,3 +387,14 @@ console.log(quickSort(arr));
 ## CSS3实现一个扇形
 
 > 详情见页面8
+
+```css
+.box{
+    width: 0;
+    height: 0;
+    border-width: 50px;
+    border-style: solid;
+    border-color: #f00 transparent transparent;
+    border-radius: 50px;
+}
+```

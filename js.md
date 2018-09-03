@@ -102,7 +102,6 @@ var p = new Person('张三');
 3. 这个全新的对象会绑定到函数调用的this
 4. 如果函数没有返回其他对象，那么new表达式中的函数调用会返回这个新对象
 
-
 ### apply、call、bind三者区别
 
 1. apply()方法调用一个函数，第一个参数指定了函数体内的this，第二个参数为一个带下标的集合，可以数组也可以为类数组。
@@ -139,7 +138,7 @@ var p = new Person('张三');
 
 ### 跨域如何携带Cookie
 
-1. 设置`XMLHttpRequest` 的`withCredentials = true。
+1. 设置`XMLHttpRequest` 的`withCredentials = true`。
 2. 同时`Access-Control-Allow-Origin`就不能设为星号，必须指定明确的、与请求网页一致的域名。
 3. 同时，Cookie依然遵循同源政策，只有用服务器域名设置的Cookie才会上传，其他域名的Cookie并不会上传，且（跨源）原网页代码中的`document.cookie`也无法读取服务器域名下的Cookie。
 
@@ -150,7 +149,7 @@ JSONP 利用DOM中的script标签src属性来请求，请求中带有参数callb
 优点：
 
 1. 兼容性好，不管是什么浏览器都支持。
-2. 不需要XMLHttpRequest或者AciveX的支持。
+2. 不需要`XMLHttpRequest`或者`AciveX`的支持。
 
 缺点：
 
@@ -237,7 +236,6 @@ JSONP 利用DOM中的script标签src属性来请求，请求中带有参数callb
 4. 在事件中输出，同3方法
 5. 在css中输出，css中进行编码
 6. 在地址栏中输出，使用js中的`encodeURI`或者`encodeURIComponent`方法
-
 
 
 # 五、面试技巧
