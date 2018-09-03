@@ -71,13 +71,16 @@
         </article>
     </section> -->
 
-    <section>
+    <!-- <section>
         <style>
             .layout-flex{
                 display:flex;
             }
             .center{
                 flex: 1;
+            }
+            .left,.right{
+                flex-shrink: 0
             }
         </style>
         <article class="layout-flex">
@@ -87,7 +90,104 @@
             </div>
             <div class="right"></div>
         </article>
+    </section> -->
+
+    <!-- <section>
+        <style>
+            .layout-table{
+                display:table;
+                width: 100%;
+            }
+            .layout-table>div{
+                display: table-cell
+            }
+            
+        </style>
+        <article class="layout-table">
+            <div class="left"></div>
+            <div class="center">
+                <h1>4.table布局</h1>
+            </div>
+            <div class="right"></div>
+        </article>
     </section>
 
+    <section>
+        <style>
+            .layout-gird{
+                display: grid;
+                width: 100%;
+                grid-template-rows: 300px;
+                grid-template-columns: 300px auto 300px;
+            }
+        </style>
+        <article class="layout-gird">
+            <div class="left"></div>
+            <div class="center">
+                <h1>5.网格布局</h1>
+            </div>
+            <div class="right"></div>
+        </article>
+    </section> -->
+
+    <!-- <section>
+        <style>
+            .layout-sb{
+                padding: 0 300px;
+            }
+            .layout-sb>div{
+                float: left;
+                position: relative;
+            }
+            .left{
+                left: -300px;
+                margin-right: -300px;
+            }
+            .right{
+                right: -300px;
+                margin-left: -300px;
+            }
+            .center{
+                width: 100%;
+            }
+        </style>
+        <article class="layout-sb">
+            <div class="left"></div>
+            <div class="center">
+                <h1>6.网格布局</h1>
+            </div>
+            <div class="right"></div>
+        </article>
+    </section> -->
+
+
+    <section>
+        <style>
+            .layout-sfy>div{
+                float: left;
+            }
+            .left{
+                margin-left: -100%;
+            }
+            .right{
+                margin-left: -300px;
+            }
+            .center{
+                width: 100%;
+            }
+            .center .main{
+                margin: 0 300px;
+            }
+        </style>
+        <article class="layout-sfy">
+            <div class="center">
+                <div class="main">
+                    <h1>7.双飞翼布局</h1>
+                </div>
+            </div>
+            <div class="left"></div>
+            <div class="right"></div>
+        </article>
+    </section>
 </body>
 </html>

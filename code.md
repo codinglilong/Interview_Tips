@@ -152,7 +152,144 @@
         </article>
     </section>
     ```
+3. 方法三：flex布局
+    ```html
+    <section>
+        <style>
+            .layout-flex{
+                display:flex;
+            }
+            .center{
+                flex: 1;
+            }
+            .left,.right{
+                flex-shrink: 0; //不让left和right缩放
+            }
+        </style>
+        <article class="layout-flex">
+            <div class="left"></div>
+            <div class="center">
+                <h1>3.flex布局</h1>
+            </div>
+            <div class="right"></div>
+        </article>
+    </section>
+    ```
 
+4. 方法四：table布局
+    ```html
+    <section>
+        <style>
+            .layout-table{
+                display:table;
+                width: 100%;
+            }
+            .layout-table>div{
+                display: table-cell
+            }
+            
+        </style>
+        <article class="layout-table">
+            <div class="left"></div>
+            <div class="center">
+                <h1>4.table布局</h1>
+            </div>
+            <div class="right"></div>
+        </article>
+    </section>
+    ```
+
+5. 方法五：grid布局
+    ```html
+    <section>
+        <style>
+            .layout-gird{
+                display: grid;
+                width: 100%;
+                grid-template-rows: 300px;
+                grid-template-columns: 300px auto 300px;
+            }
+        </style>
+        <article class="layout-gird">
+            <div class="left"></div>
+            <div class="center">
+                <h1>5.网格布局</h1>
+            </div>
+            <div class="right"></div>
+        </article>
+    </section>
+    ```
+
+6. 方法六：圣杯布局
+    ```html
+    <section>
+        <style>
+            .layout-sb{
+                padding: 0 300px;
+            }
+            .layout-sb>div{
+                float: left;
+                position: relative;
+            }
+            .left{
+                left: -300px;
+                margin-right: -300px;
+            }
+            .right{
+                right: -300px;
+                margin-left: -300px;
+            }
+            .center{
+                width: 100%;
+            }
+        </style>
+        <article class="layout-sb">
+            <div class="left"></div>
+            <div class="center">
+                <h1>6.网格布局</h1>
+            </div>
+            <div class="right"></div>
+        </article>
+    </section>
+    ```
+
+7. 方法七：双飞翼布局
+    ```html
+    <section>
+        <style>
+            .layout-sfy>div{
+                float: left;
+            }
+            .left{
+                margin-left: -100%;
+            }
+            .right{
+                margin-left: -300px;
+            }
+            .center{
+                width: 100%;
+            }
+            .center .main{
+                margin: 0 300px;
+            }
+        </style>
+        <article class="layout-sfy">
+            <div class="center">
+                <div class="main">
+                    <h1>7.双飞翼布局</h1>
+                </div>
+            </div>
+            <div class="left"></div>
+            <div class="right"></div>
+        </article>
+    </section>
+    ```
+
+### 双飞翼布局的好处
+
+1. 主要的内容先加载
+2. 兼容目前所有的主流浏览器，包括IE6在内
+3. 实现不同的布局方式，可以通过调整相关css属性即可实现
 
 ## 左侧固定右侧自适应
 
