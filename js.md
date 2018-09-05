@@ -237,5 +237,62 @@ JSONP 利用DOM中的script标签src属性来请求，请求中带有参数callb
 5. 在css中输出，css中进行编码
 6. 在地址栏中输出，使用js中的`encodeURI`或者`encodeURIComponent`方法
 
+## DOM事件
+### DOM事件的级别
+
+1. DOM0事件 `ele.onclick=function(){}`
+2. DOM2事件 `ele.addEventListener('click',function(){},false)`;最后一个布尔值参数如果是`true`,表示在捕获阶段调用事件处理程序，如果为`false`，表示在冒泡阶段调用事件处理程序。IE：`ele.attachEvent('onclick',function(){})`
+3. DOM3事件 DOM3事件在DOM2事件基础上重新定义了这些事件，也增加了一些新的事件。如：UI事件（load），焦点事件，鼠标事件，滚轮事件，键盘事件，合成事件。
+
+
+### DOM事件模型
+
+1. 捕获，从document对象首先接收到事件，然后事件沿DOM树依次向下，一直传播到事件的实际目标。
+2. 冒泡，从实际目标元素事件沿DOM树向上传播，在每一级节点都会发生，知道传播到document对象。
+
+### DOM事件流
+1. 事件捕获阶段
+2. 处于目标阶段
+3. 事件冒泡阶段
+
+### 描述DOM事件捕获的具体流程
+
+`document=>html=>body=>div=>`...实际目标
+
+### Event对象的常见应用
+
+#### 非IE
+1. event事件对象的方法
+    + 阻止默认事件 `event.preventDefault()`.
+    + 阻止冒泡 `event.stopPropagation()`
+
+2. event事件对象的属性
+    + 事件的目标 `target`
+    + 事件的类型 `type`
+    + 事件处理程序当前正在处理的那个元素 `currentTarget`
+
+#### IE
+1. `cancelBubble`默认为`false`,设置为`true`可以取消事件冒泡
+2. `returnValue`默认为`true`，设置为`false`可以取消事件的默认行为
+3. `srcElement`事件的目标
+4. `type`事件的类型
+
+### 自定义事件
+自定义事件需要自己封装，实现功能。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 # 五、面试技巧
