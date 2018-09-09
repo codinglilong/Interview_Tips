@@ -69,23 +69,91 @@ var p = new Person('张三');
 
  ![image](./images/1.png)
 
-总结：所有的函数`__proto__`都指向`Function prototype`,包括`new Function()`本身。所有的函数`prototype`对象的`__proto__`(除了Object)都指向`Object prototype`。`Object prototype`对象的`__proto__`指向`null`。对象只有`__proto__`属性
+总结：所有的函数`__proto__`都指向`Function prototype`,包括`new Function()`本身。所有的函数`prototype`对象的`__proto__`(除了Object)都指向`Object prototype`。`Object prototype`对象的`__proto__`指向`null`。对象只有`__proto__`属性。
 
-## 作用域
+### 创建对象的几种方式
 
-## 闭包
+1. `var o1 = {name:'o1'}`字面量的方式创建对象
+2. `var M = function(name){this.name =  name}; var o2 = new M('o2');` 通过构造函数
+3. `var P = {name:'o3'}; var o3 = Object.create(p);` 通过`Object.create`方式
 
-## 异步
+### 类的声明
+
+1. 普通function
+    ```javascript
+    function Person(name,age){
+        this.name = name;
+        this.age = age;
+    }
+    ```
+2. ES6 class声明
+    ```javascript
+    class Person(){
+        constoructor(name,age){
+            this.name = name;
+            this.age = age;
+        }
+    }
+    ```
+
+### 类的继承方式
+
+1. call/apply
+    ```javascript
+    function Parent(){
+        this.name = 'Parent';
+    }
+    function Child(){
+        Parent.call(this);
+        this.type = 'Child';
+    }
+    ```
+    缺点：子类拿不到父类原型中的方法
+
+2. 利用原型继承
+    ```javascript
+    function Parent(){
+        this.name = 'Parent';
+    }
+    function Child(){
+        this.type = 'Child';
+    }
+    Child.prototype = new Parent();
+    ```
+    缺点：constoructor并不指向子类构造函数，Child多个实例引用同一个对象，这就造成修改一个实例继承中的属性，其他实例继承的属性也会跟着变动
+
+3. 组合方式
+    ```javascript
+    function Parent(){
+        this.name = 'Parent';
+    }
+    function Child(){
+        Parent.call(this);
+        this.type = 'Child';
+    }
+    Child.prototype = new Parent();
+    ```
+    缺点：constoructor并不指向子类构造函数,实例化一个子类会调用2次父类构造函数
+
+4. 组合继承优化
+    ```javascript
+    function Parent(){
+        this.name = 'Parent';
+    }
+    function Child(){
+        Parent.call(this);
+        this.type = 'Child';
+    }
+    Child.prototype = Object.create(Parent);
+    Child.prototype.contoructor = Child;
+
+    ```
 
 ### Promise三种状态
 
 1. pending(进行中)
 2. fulfilled(已成功)
 3. rejected(失败)
-
-## 单线程
-
-## 未分类
 
 ### this的指向问题
 
@@ -108,16 +176,12 @@ var p = new Person('张三');
 2. call()方法和apply()一样，唯一就是从第二个参数开始外后，每个参数被依次传入函数。
 3. bind()方法创建一个新的函数，第一个参数指定了函数体内的this，从第二个参数开始外后，每个参数被依次传入函数。bind()返回的是一个修改过后的函数
 
-# 二、JS API
-
 ## DOM操作
 
 1. `window.onload` 和 `DOMContentLoaded`的区别？
 2. 用js创建10个`<a>`标签，点击的时候弹出来对应的序号
 
 ### 类库和框架有什么区别
-
-## Ajax
 
 ### HTTP协议的主要特点
 
@@ -192,8 +256,64 @@ HTTP协议采用“请求-应答”模式，当使用普通模式，即非`Keep-
 4. HTTP/1.1要求服务端支持管线化。
 
 ### 如何封装一个ajax
+
+```javascript
+function ajax(options){
+    var url = options.url;
+    var type = options.type.toUpperCase() || 'GET';
+    var data = options.data || {};
+    var sync = options.sync || false;
+    var success = options.success;
+    var error = options.error;
+    if(url){
+        var xhr = XMLHttpRequest? new XMLHttpRequest : new window.ActiveXObject('Microsoft.XMLHTTP');
+        var dataArr = [];
+        for(var k in data){
+            dataArr.push(k+'='+data[k]);
+        }
+        if(type === 'GET'){
+            url = url+'?'+dataArr.join('&');
+            xhr.open(type,url,sync);
+            xhr.send();
+        }
+        if(type === 'POST'){
+            xhr.open(type,url,sync);
+            xhr.setRequestHeader('Contenxt-Type','application/x-www-form-urlencoded');
+            xhr.send(dataArr.join('&'));
+        }
+        xhr.onload=function(){
+            if(xhr.status === 200 || xhr.status === 304){
+                var res =xhr.responseText;
+                if(typeof res === 'string'){
+                    success && success(JSON.parse(res));
+                }
+            }else{
+                error && error('err',xhr.status)
+            }
+        }
+    }
+}
+```
+
+### xhr.onload 和xhr.onreadystatechange 区别
+
+xhr在创建到建立通讯、传输、响应是一系列过程，任何状态改变都会触发`onreadystatechange`,而请求完成才会触发`onload`。
+
 ### XMLHttpRequest对象中的readystate每个阶段状态代表什么
 
+### 什么是同源策略
+
+同源策略是浏览器安全必要的策略，限制只能从一个源加载文档，这是用于隔离潜在恶意文件的安全机制。域名，协议，端口这3种不通源不一样就是跨域了。
+
+1. Cookie、LocalStorage和IndexDB无法获取
+2. DOM无法获得
+3. ajax不能获取
+
+### 前后端如何通讯
+
+1. ajax
+2. WebSocket
+3. CORS
 
 ### 如何跨域
 
@@ -201,6 +321,7 @@ HTTP协议采用“请求-应答”模式，当使用普通模式，即非`Keep-
 2. 代理工具。例如：webpack proxy。
 3. 服务器反向代理。
 4. JSONP
+5. WebSocket
 
 ### 跨域简单请求和非简单请求
 
@@ -229,33 +350,6 @@ JSONP 利用DOM中的script标签src属性来请求，请求中带有参数callb
 2. 只支持跨域HTTP请求这种情况
 3. 不能解决不同域的两个页面之间如何进行JavaScript调用的问题
 4. 不安全，铭文传送
-
-
-### 什么是RESTful架构
-
-
-## 事件绑定
-
-
-# 三、开发环境
-
-## 版本管理
-
-## 模块化
-
-1. 简述如何实现一个模块加载器，实现类似require.js的基本功能
-
-## 打包工具
-
-
-# 四、运行环境
-
-## 页面渲染
-
-
-
-## 性能优化
-
 
 ### 浏览器输入url发生了什么
 
@@ -298,6 +392,7 @@ JSONP 利用DOM中的script标签src属性来请求，请求中带有参数callb
     + 图片合并
 
 ## 安全
+
 ### 如何预防xss攻击
 
 >主要还时过滤特殊字段和编码预防
@@ -309,13 +404,21 @@ JSONP 利用DOM中的script标签src属性来请求，请求中带有参数callb
 5. 在css中输出，css中进行编码
 6. 在地址栏中输出，使用js中的`encodeURI`或者`encodeURIComponent`方法
 
+### CSRF跨站请求伪造
+
+原理利用用户存在本地的cookie，来伪造请求
+
+1. Token验证
+2. Referer验证（页面验证，是否是自己源）
+3. 隐藏令牌
+
 ## DOM事件
+
 ### DOM事件的级别
 
 1. DOM0事件 `ele.onclick=function(){}`
 2. DOM2事件 `ele.addEventListener('click',function(){},false)`;最后一个布尔值参数如果是`true`,表示在捕获阶段调用事件处理程序，如果为`false`，表示在冒泡阶段调用事件处理程序。IE：`ele.attachEvent('onclick',function(){})`
 3. DOM3事件 DOM3事件在DOM2事件基础上重新定义了这些事件，也增加了一些新的事件。如：UI事件（load），焦点事件，鼠标事件，滚轮事件，键盘事件，合成事件。
-
 
 ### DOM事件模型
 
@@ -323,6 +426,7 @@ JSONP 利用DOM中的script标签src属性来请求，请求中带有参数callb
 2. 冒泡，从实际目标元素事件沿DOM树向上传播，在每一级节点都会发生，知道传播到document对象。
 
 ### DOM事件流
+
 1. 事件捕获阶段
 2. 处于目标阶段
 3. 事件冒泡阶段
@@ -334,6 +438,7 @@ JSONP 利用DOM中的script标签src属性来请求，请求中带有参数callb
 ### Event对象的常见应用
 
 #### 非IE
+
 1. event事件对象的方法
     + 阻止默认事件 `event.preventDefault()`.
     + 阻止冒泡 `event.stopPropagation()`
@@ -344,27 +449,83 @@ JSONP 利用DOM中的script标签src属性来请求，请求中带有参数callb
     + 事件处理程序当前正在处理的那个元素 `currentTarget`
 
 #### IE
+
 1. `cancelBubble`默认为`false`,设置为`true`可以取消事件冒泡
 2. `returnValue`默认为`true`，设置为`false`可以取消事件的默认行为
 3. `srcElement`事件的目标
 4. `type`事件的类型
 
 ### 自定义事件
+
 自定义事件需要自己封装，实现功能。
 
+### 浏览器渲染过程
 
+1. 解析html构建dom树。浏览器将html解析成dom树，前节点的所有子节点都构建好后才会去构建当前节点的下一个兄弟节点。
+2. 将css解析成css rule树
+3. 构建render树。根据DOM树和CSS rule 树来构造 Rendering Tree
+4. 布局render树。有了Render Tree，浏览器已经能知道网页中有哪些节点、各个节点的CSS定义以及他们的从属关系。下一步操作称之为layout，顾名思义就是计算出每个节点在屏幕中的位置。
+5. 绘制render树。再下一步就是绘制，即遍历render树，并使用UI后端层绘制每个节点。
 
+### 如何理解js的单线程
 
+一个事件之内js只能做一件事情.
 
+### 什么是任务队列
 
+1. 同步任务
+2. 异步任务
 
+### 异步任务有哪些
 
+1. setTimeout和setInterval
+2. DOM事件
+3. ES6中的Promise
+4. XHRHttpRequest
 
+## 性能提升
 
+### 提升页面性能的方法有哪些
 
+1. 资源压缩合并，减少HTTP请求
+2. 非核心代码异步加载
+3. 利用浏览器缓存
+4. 使用CDN
+5. 预解析CDN
 
+### 异步加载的方式
 
+1. 动态脚本加载
+2. defer
+3. async
 
+### 异步加载的区别
 
+1. defer 是在HTML解析完之后才会按照加载顺序依次执行
+2. async 是在加载完之后立即只能给，与顺序无关
 
-# 五、面试技巧
+### 浏览器缓存
+
+1. 强缓存（不咨询服务器，直接使用本地缓存）
+    + Expires
+    + Cache-Control
+2. 协商缓存（咨询服务器，在判断是否使用本地缓存）
+    + Last-Modified If-Modified-Since
+    + Etag If-None-Match
+
+## 错误监控
+
+### 前端错误分类和捕获方式
+
+1. 即时运行错误：代码出错
+    + `try..catch`
+    + `window.onerror`
+2. 资源加载出错
+    + `object.onerror`
+    + `performance.getEntries()`
+    + `Error`事件捕获
+
+### 上报错误的基本原理
+
+1. 采用ajax通信的方式上报
+2. 利用image对象上报，使用src='上报请求路径'
