@@ -214,3 +214,15 @@ React适合用在那些DOM操作复杂的单页面应用，有利于提高代码
 ## MVVM理解
 
 `Model-View-ViewModel` 是一种软件架构设计模式 是MVC的升级版。View是用户界面，Model后端给与的数据模型，ViewModel前端开发人员组织生成和维护的视图数据层。MVVM 的核心是 ViewModel 层，负责转换 Model 中的数据对象来让数据变得更容易管理和使用，该层向上与视图层进行双向数据绑定，向下与 Model 层通过接口请求进行数据交互，起呈上启下作用。
+
+## 重新整理Redux
+
+## react key
+
+## react diff
+
+## vue 双向绑定
+
+## 箭头函数与普通函数有什么不同
+
+## var let const有什么区别
