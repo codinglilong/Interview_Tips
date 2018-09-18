@@ -529,3 +529,15 @@ JSONP 利用DOM中的script标签src属性来请求，请求中带有参数callb
 
 1. 采用ajax通信的方式上报
 2. 利用image对象上报，使用src='上报请求路径'
+
+## es6
+
+### 箭头函数与普通函数有什么不同
+
+1. 箭头函数是匿名函数，不能作为构造函数，不能使用`new`
+2. 箭头函数不绑定`arguments`
+3. 箭头`this`永远指向其上下文的this，任何方法都改变不了其指向，如`call bind apply`
+4. 箭头函数没有原型属性
+5. 箭头函数不能当做`generator`函数，不能使用`yield`关键字
+
+### var let const有什么区别

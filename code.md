@@ -187,7 +187,6 @@
             .layout-table>div{
                 display: table-cell
             }
-            
         </style>
         <article class="layout-table">
             <div class="left"></div>
@@ -533,5 +532,31 @@ console.log(quickSort(arr));
     border-style: solid;
     border-color: #f00 transparent transparent;
     border-radius: 50px;
+}
+```
+
+## 断任一个数值接近数组中的某个值
+
+```js
+var arr = [3,6,80,9,54,11,5]
+function limit(arr,num){
+    var newArr = [];
+    arr.forEach(i=>newArr.push(Math.abs(i-num)));
+    var index = newArr.indexOf(Math.min.apply(null,newArr));
+    return arr[index];
+}
+console.log(limit(arr,10));
+```
+
+## 数组乱序
+
+```js
+const shuffe = ([...arr])=>{
+    let m = arr.length;//数组长度
+    while(m){
+        const i = Math.floor(Math.random()*m--);//随机拿到一个index
+        [arr[m], arr[i]] = [arr[i], arr[m]];//逐次交换index中的位置
+    }
+    return arr;
 }
 ```
