@@ -144,7 +144,7 @@ var p = new Person('张三');
         Parent.call(this);
         this.type = 'Child';
     }
-    Child.prototype = Object.create(Parent);
+    Child.prototype = Object.create(Parent.prototype);
     Child.prototype.contoructor = Child;
 
     ```

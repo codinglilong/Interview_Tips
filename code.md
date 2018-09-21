@@ -560,3 +560,18 @@ const shuffe = ([...arr])=>{
     return arr;
 }
 ```
+
+## Object.create实现
+
+```js
+Object.prototype.create = function(proto){
+    function F(){}
+    F.prototype = proto;
+    return new F();
+}
+
+```
+
+## 节流函数
+
+## 防抖函数
