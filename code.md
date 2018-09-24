@@ -399,41 +399,38 @@ console.log(numberToStrFor26(200));
 > 详情见页面4
 
 1. 缺点：转换后数组中的每项为字符串
-
-```javascript
-var arr =[1,4,2,[9,2,4,[7,3,2],[4,1]]];
-console.log(arr.join(',').split(','));
-```
+    ```javascript
+    var arr =[1,4,2,[9,2,4,[7,3,2],[4,1]]];
+    console.log(arr.join(',').split(','));
+    ```
 
 2. 递归
-
-```Javascript
-var arr =[1,4,2,[9,2,4,[7,3,2],[4,1]]];
-var newArr=[];
-function fun(arr){
-    for(var i =0;i<=arr.length;i++){
-        if(Array.isArray(arr[i])){
-            fun(arr[i]);
-        }else{
-            if(arr[i]){
-                newArr.push(arr[i]);
+    ```Javascript
+    var arr =[1,4,2,[9,2,4,[7,3,2],[4,1]]];
+    var newArr=[];
+    function fun(arr){
+        for(var i =0;i<=arr.length;i++){
+            if(Array.isArray(arr[i])){
+                fun(arr[i]);
+            }else{
+                if(arr[i]){
+                    newArr.push(arr[i]);
+                }
             }
         }
     }
-}
-fun(arr);
-console.log(newArr);
-```
+    fun(arr);
+    console.log(newArr);
+    ```
 
 3. 利用es6和reduce
-
-```Javascript
-var arr =[1,4,2,[9,2,4,[7,3,2],[4,1]]];
-const flatten = arr =>arr.reduce(
-    (acc,val)=>acc.concat(Array.isArray(val)?flatten(val):val),[]
-);
-console.log(flatten(arr));
-```
+    ```Javascript
+    var arr =[1,4,2,[9,2,4,[7,3,2],[4,1]]];
+    const flatten = arr =>arr.reduce(
+        (acc,val)=>acc.concat(Array.isArray(val)?flatten(val):val),[]
+    );
+    console.log(flatten(arr));
+    ```
 
 ## for循环正确的输出0，1，2
 
@@ -449,26 +446,24 @@ for (var i = 0; i < 3; i++) {
 ```
 
 1. 利用es6 let块作用域解决
-
-```Javascript
-for (let i = 0; i < 3; i++) {
-    setTimeout(function(){
-        console.log(i);
-    },1000);
-}
-```
-
-2. 利用闭包
-
-```Javascript
-for (var i = 0; i < 3; i++) {
-    (function(i){
+    ```Javascript
+    for (let i = 0; i < 3; i++) {
         setTimeout(function(){
             console.log(i);
-        },1000*i);
-    })(i)
-}
-```
+        },1000);
+    }
+    ```
+
+2. 利用闭包
+    ```Javascript
+    for (var i = 0; i < 3; i++) {
+        (function(i){
+            setTimeout(function(){
+                console.log(i);
+            },1000*i);
+        })(i)
+    }
+    ```
 
 ## 冒泡排序
 
@@ -574,4 +569,103 @@ Object.prototype.create = function(proto){
 
 ## 节流函数
 
+> 连续触发事件但是在 n 秒中只执行一次函数
+
+1. 时间戳版
+    ```js
+    function throttle(delay,fn){
+        var previous = 0;
+        return function(){
+            var _this =this;
+            var now = Date.now();
+            if(now - previous > delay){
+                fn.apply(_this,arguments);
+                previous = now;
+            }
+        }
+    }
+    ```
+2. setTimeout版
+    ```js
+    function throttle(delay,fn){
+        var timer;
+        return function(){
+            var _this= this;
+            if(!timer){
+                timer = setTimeout(function(){
+                    fn.apply(_this,arguments);
+                    timer = null;
+                },delay)
+            }
+        }
+    }
+    ```
+3. setTimeout 立即执行版
+    ```js
+    function throttle(delay,fn){
+        var timer;
+        return function(){
+            if(!timer){
+                timer = setTimeout(function(){
+                    timer = null;
+                },delay);
+                fn.apply(this,arguments);
+            }
+        }
+    }
+    ```
+
 ## 防抖函数
+
+> 触发事件后在 n 秒内函数只能执行一次，如果在 n 秒内又触发了事件，则会重新计算函数执行时间
+1. 普通通用
+    ```js
+    txt.onkeyup = debounce(1000,function(){
+        console.log('暂停');
+    })
+    function debounce(delay,fn){
+        var timer;
+        return function(){
+            var _this = this;//谁调用this就指向谁
+            if(timer) clearTimeout(timer);
+            timer = setTimeout(function(){
+                fn.apply(_this,arguments)
+            },delay);
+        }
+    }
+    ```
+2. 立即执行
+    ```js
+    function debounce(delay,fn){
+        var timer;
+        return function(){
+            var callNow = !timer;
+            if(timer) clearTimeout(timer);
+            timer = setTimeout(function(){
+                timer = null;
+            },delay);
+            if(callNow) fn.apply(this,arguments);
+        }
+    }
+    ```
+3. 两者结合
+    ```js
+    function debounce(delay,fn,immediate){
+        var timer;
+        return function(){
+            var _this = this;
+            if(timer) clearTimeout(timer);
+            if(immediate){
+                var callNow = !timer;
+                timer = setTimeout(function(){
+                    timer=null;
+                },delay);
+                if(callNow) fn.apply(_this,arguments);
+            }else{
+                timer = setTimeout(function(){
+                    fn.apply(_this,arguments);
+                },delay);
+            }
+        }
+    }
+    ```
