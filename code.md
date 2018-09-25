@@ -669,3 +669,54 @@ Object.prototype.create = function(proto){
         }
     }
     ```
+
+## bind的实现
+
+```js
+Function.prototype.bind = function(context){
+    var _this = this;
+    var args = Array.prototype.slice.call(arguments, 1);
+    var F = function(){};
+    var fBound =function(){
+        return _this.apply(this instanceof F ? this : context,args.concat(Array.prototype.slice.call(arguments)));
+    }
+    if(this.prototype){
+        F.prototype = this.prototype;
+    }
+    fBound.prototype = new F();
+    return fBound;
+}
+```
+
+## call的实现
+
+```js
+Function.prototype.call = function(context){
+    var obj = context || window;
+    var args = [];
+    for(var i=1;i<arguments.length;i++){
+        args.push('arguments['+i+']');
+    }
+    obj.fn = this;
+    eval('obj.fn('+args+')');
+    delete obj.fn;
+}
+```
+
+## apply的实现
+
+```js
+Function.prototype.apply = function(obj,arr){
+    obj.fn = this;
+    if(!arr){
+        obj.fn();
+    }else{
+        var args = [];
+        for(var i=1;i<arguments.length;i++){
+            args.push('arr['+i+']');
+        }
+        evel('obj.fn('+args+')');
+    }
+    delete obj.fn;
+}
+```

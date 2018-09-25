@@ -540,4 +540,18 @@ JSONP 利用DOM中的script标签src属性来请求，请求中带有参数callb
 4. 箭头函数没有原型属性
 5. 箭头函数不能当做`generator`函数，不能使用`yield`关键字
 
-### var let const有什么区别
+## 模块化
+
+### AMD
+
+1. require.js
+2. 全局define函数
+3. 全局require函数
+4. 依赖的js会自动异步加载
+
+### Commonjs
+
+1. nodejs模块化规范
+2. npm中获取
+3. 构建工具自动化，使用npm成本低
+4. Commonjs不会异步加载js，而是同步一次性加载出来
