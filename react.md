@@ -149,31 +149,6 @@ render() {
 
 Redux是一种新型的前端架构模式。管理全局状态。web应用是一个状态机，视图与状态是一一对应的。所有的状态，保存在一个对象里面。可以在同一种地方查询状态、改变状态、传播状态的变化。
 
-## Redux 工作流
-
-1. 首先用户发出action
-
-`store.dispatch(action)`
-2. Store自动调用Reducer，并且传入两个参数。一个是当前State和收到的Action，一个是Redux会返回的新的State。
-
-`let nextState = toduApp(previousState,action)`
-3. State一旦有变化，Store就会调用监听函数
-
-`store.subscribe(listener)`
-4. listener可以通过`store.getState()`得到当前的状态。如果使用的是React,这时可以触发重新渲染View。
-
-```JavaScript
-function listerner(){
-    let newState = store.getState();
-    component.setState(newState);
-}
-```
-
-## React-Redux工作流
-
-1. `Provider`组件接受`redux`的`store`作为`props`，然后通过`context`往下传。
-2. `connect`函数收到`Provider`传出的`store`，然后接受三个参数`mapStateToProps`，`mapDispatchToProps`和组件，并将`state`和`actionCreator`以`props`传入组件，这时组件就可以调用`actionCreator`函数来触发`reducer`函数返回新的`state`，`connect`监听到`state`变化调用`setState`更新组件并将新的state传入组件。
-
 ## React、VUE和angular三者区别
 
 1. vue API设计上简单，语法简单，学习成本低
@@ -234,3 +209,23 @@ React适合用在那些DOM操作复杂的单页面应用，有利于提高代码
 ## react loadable原理
 
 把js代码分成N个页面份数的文件，不在用户刚进入就全部引入，而是等用户挑战路由的时候，再加载对应的js文件。这样做的好处就是加速首屏渲染的速度，同时也减少了资源的浪费。
+
+## react redux口述
+
+说起react redux就要先从redux说起.Redux是一种架构模式。是对于全局状态的管理，因为所有共享状态的操作都是不可预料，出现问题的时候找起来就非常困难。而redux所要做的是提高数据修改的门槛，想要修改数据只能执行某些我允许操作来修改数据，而且是只能从一个地方修改保证统一。
+
+redux重要3个点是：Actions,Reducers,Store。
+
+1. Actions 来告诉我们的状态管理器需要做什么样的操作，action是个对象。其中type字段来声明你到底要做什么，后面存放需要处理的数据。
+2. Reducers 它会对action做出不同操作的函数。不直接改变state的值，而是返回一个新的对象，保持state的唯一性，在没有任何操作的情况下，会返回初始的state。
+3. Store 用来管理state的单一对象提供了下面三种方法
+    + `store.getState()` 获取当前返回的state。
+    + `store.dispatch(action)` 发出操作，更新state。
+    + `store.subscribe(listener)` 监听变化，当state发生更新时，就可以在这个函数的回调中监听。
+
+react-redux在redux的基础上，还要关注的是Provider和connect
+
+1. Provider就是把用redux创建的store传递到内部的组件中区，让内部通过react context让内部可以享有这个store并提供对state的更新
+2. connent是个高阶函数。有2个主要方法
+    + `mapStateToProps` 这个方法将store中的数据作为props绑定到组件上
+    + `mapDispatchToProps` 这个方法是将dispatch绑定的函数作为props绑定到组件上
