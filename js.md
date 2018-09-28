@@ -48,6 +48,9 @@ arr instanceof Array //true
 
 //es5
 Array.isArray(arr); //true
+
+Object.prototype.toString().call() // [Object Array]
+
 ```
 
 ## 原型
@@ -502,7 +505,7 @@ JSONP 利用DOM中的script标签src属性来请求，请求中带有参数callb
 ### 异步加载的区别
 
 1. defer 是在HTML解析完之后才会按照加载顺序依次执行
-2. async 是在加载完之后立即只能给，与顺序无关
+2. async 是在加载完之后立即执行，与顺序无关
 
 ### 浏览器缓存
 

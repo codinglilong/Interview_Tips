@@ -7,19 +7,19 @@
     <title>Document</title>
     <script>
         //讲输入的字母传转换为十进制
-        function strToNumberFor26(str){
-            var strArr = str.split('');
-            var j = 1;
-            var num=0;
-            for (let i = strArr.length-1; i >=0 ; i--) {
-                var char = strArr[i];
-                var c = char.toUpperCase();
-                num += (c.charCodeAt(0)-64)*j;
-                j*=26;
-            }
-            return num;
-        }
-        console.log(strToNumberFor26('ABC'));
+        // function strToNumberFor26(str){
+        //     var strArr = str.split('');
+        //     var j = 1;
+        //     var num=0;
+        //     for (let i = strArr.length-1; i >=0 ; i--) {
+        //         var char = strArr[i];
+        //         var c = char.toUpperCase();
+        //         num += (c.charCodeAt(0)-64)*j;
+        //         j*=26;
+        //     }
+        //     return num;
+        // }
+        // console.log(strToNumberFor26('ABC'));
         //将十进制转换为字符串
         function numberToStrFor26(num){
             var str='';
@@ -30,10 +30,10 @@
             }
             return str;
         }
-        console.log(numberToStrFor26(2135));
+        console.log(numberToStrFor26(80));
     </script>
 </head>
 <body>
 
 </body>
-</html>
+</html> 

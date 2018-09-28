@@ -119,7 +119,6 @@ React15.3中新加的一个类`PurcComponent`，和`Component`基本一样，只
 1. 组件不能访问this对象
 2. 组件无法访问生命周期的方法
 
-
 ## 一个组件如何返回多个元素，并且不在DOM中增加额外的节点
 
 使用Fragments

@@ -363,7 +363,7 @@
 
 > 详情见页面3
 
-A=1,B=2,3=C,26=Z,27=AA,28=AB,29=AC...
+A=1,B=2,3=C...26=Z,AA=27,AB=28,AC=29...
 
 ```javascript
 //讲输入的字母传转换为十进制
@@ -381,6 +381,7 @@ function strToNumberFor26(str){
     return num;
 }
 console.log(strToNumberFor26('vv'));
+
 //将十进制转换为字符串
 function numberToStrFor26(num){
     var str='';
@@ -392,6 +393,11 @@ function numberToStrFor26(num){
     return str;
 }
 console.log(numberToStrFor26(200));
+
+200
+7 + 64 = 73 = i
+200-7/26 = 193/26=7
+7
 ```
 
 ## 多维数组转换为一维数组
@@ -530,7 +536,7 @@ console.log(quickSort(arr));
 }
 ```
 
-## 断任一个数值接近数组中的某个值
+## 判断断任一个数值接近数组中的某个值
 
 ```js
 var arr = [3,6,80,9,54,11,5]
