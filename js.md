@@ -32,6 +32,10 @@ null == undefined
 1 == true
 ```
 
+### 解决js浮点丢失问题
+
+`Math.floor(运算结果 * 100)/100`
+
 ### js中的内置函数
 
 Object,Array,Boolean,Number,String,Function,Date,RegExp,Error
