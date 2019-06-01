@@ -203,6 +203,10 @@ React适合用在那些DOM操作复杂的单页面应用，有利于提高代码
 
 当react 进行diff算法，列表的节点比较就依赖key作为对比和更新依据。不适用key，会对性能造成影响。
 
+## 什么时候选用react或者vue
+
+react相对于vue，react灵活性更大些，处理复杂的业务时，技术方案选择性更多一些，而vuejs提供了更为丰富的api实现功能会更坚定，因为api多灵活性就受到一点限制。复杂度教高时更倾向于react，而在做一些面向用户端复杂度不是很高时，用vue会更好一些。具体选择哪一个要看，公司对于哪款框架的驾驭程度。
+
 ## vue 双向绑定
 
 ## react loadable原理
@@ -228,3 +232,14 @@ react-redux在redux的基础上，还要关注的是Provider和connect
 2. connent是个高阶函数。有2个主要方法
     + `mapStateToProps` 这个方法将store中的数据作为props绑定到组件上
     + `mapDispatchToProps` 这个方法是将dispatch绑定的函数作为props绑定到组件上
+
+## react数据视图更新原理
+
+1. state数据
+2. JSX模板
+3. 数据和模板生成虚拟dom
+4. 用虚拟dom的结构构建成真实的dom
+5. state发生变化
+6. 重新拿到数据和模板生成新的虚拟dom
+7. 比较原始的虚拟dom和新的虚拟dom的区别,进行替换或者删除
+8. 然后用更新过后的虚拟dom构建成真实的dom
