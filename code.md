@@ -5,6 +5,7 @@
 > 详情见页面1
 
 1. 需要父盒子子盒子高度，文字水平居中
+
     ```css
     .box{
         position: relative;
@@ -25,6 +26,7 @@
     ```
 
 2. 利用css3 transform的translate属性来定位,不需要子盒子高度，但是需要父盒子高度
+
     ```css
     .box{
         position: relative;
@@ -42,6 +44,7 @@
     ```
 
 3. 需要设置子盒子宽高，然后margin-left和margin-top减去子盒子的宽高，需要计算
+
     ```css
     .box {
         position: relative;
@@ -60,6 +63,7 @@
     ```
 
 4. 利用css3 flex弹性盒子来实现，最为简洁
+
     ```css
     .box {
         display: flex;
@@ -102,6 +106,7 @@
 ```
 
 1. 方法一：绝对定位
+
     ```html
     <section>
         <style>
@@ -130,6 +135,7 @@
     ```
 
 2. 方法二：浮动布局
+
     ```html
     <section>
         <style>
@@ -152,7 +158,9 @@
         </article>
     </section>
     ```
+
 3. 方法三：flex布局
+
     ```html
     <section>
         <style>
@@ -177,6 +185,7 @@
     ```
 
 4. 方法四：table布局
+
     ```html
     <section>
         <style>
@@ -199,6 +208,7 @@
     ```
 
 5. 方法五：grid布局
+
     ```html
     <section>
         <style>
@@ -220,6 +230,7 @@
     ```
 
 6. 方法六：圣杯布局
+
     ```html
     <section>
         <style>
@@ -253,6 +264,7 @@
     ```
 
 7. 方法七：双飞翼布局
+
     ```html
     <section>
         <style>
@@ -295,6 +307,7 @@
 > 详情见页面2
 
 1. 方法一.
+
     ```css
     .box .left{
         height: 300px;
@@ -310,6 +323,7 @@
     ```
 
 2. 利用css3 中的计算属性
+
     ```css
     .box .left{
         height: 300px;
@@ -326,6 +340,7 @@
     ```
 
 3. 利用css3 中的flex布局
+
     ```css
     .box{
         display: flex;
@@ -344,6 +359,7 @@
     ```
 
 4. 利用后css3中的grid布局
+
     ```css
     .box{
         display: grid;
@@ -405,12 +421,14 @@ console.log(numberToStrFor26(200));
 > 详情见页面4
 
 1. 缺点：转换后数组中的每项为字符串
+
     ```javascript
     var arr =[1,4,2,[9,2,4,[7,3,2],[4,1]]];
     console.log(arr.join(',').split(','));
     ```
 
 2. 递归
+
     ```Javascript
     var arr =[1,4,2,[9,2,4,[7,3,2],[4,1]]];
     var newArr=[];
@@ -430,6 +448,7 @@ console.log(numberToStrFor26(200));
     ```
 
 3. 利用es6和reduce
+
     ```Javascript
     var arr =[1,4,2,[9,2,4,[7,3,2],[4,1]]];
     const flatten = arr =>arr.reduce(
@@ -452,6 +471,7 @@ for (var i = 0; i < 3; i++) {
 ```
 
 1. 利用es6 let块作用域解决
+
     ```Javascript
     for (let i = 0; i < 3; i++) {
         setTimeout(function(){
@@ -461,6 +481,7 @@ for (var i = 0; i < 3; i++) {
     ```
 
 2. 利用闭包
+
     ```Javascript
     for (var i = 0; i < 3; i++) {
         (function(i){
@@ -476,7 +497,7 @@ for (var i = 0; i < 3; i++) {
 > 详情见页面6
 
 ```Javascript
-var arr=[1,2,3,4,5,6];
+var arr=[7,4,8,3,1];
 function bubbleSort(arr){
     for (let i = 0; i < arr.length-1; i++) {
         var flag=true;
@@ -536,7 +557,7 @@ console.log(quickSort(arr));
 }
 ```
 
-## 判断断任一个数值接近数组中的某个值
+## 判断一个数值接近数组中的某个值
 
 ```js
 var arr = [3,6,80,9,54,11,5]
@@ -578,6 +599,7 @@ Object.prototype.create = function(proto){
 > 连续触发事件但是在 n 秒中只执行一次函数
 
 1. 时间戳版
+
     ```js
     function throttle(delay,fn){
         var previous = 0;
@@ -591,7 +613,9 @@ Object.prototype.create = function(proto){
         }
     }
     ```
+
 2. setTimeout版
+
     ```js
     function throttle(delay,fn){
         var timer;
@@ -606,7 +630,9 @@ Object.prototype.create = function(proto){
         }
     }
     ```
+
 3. setTimeout 立即执行版
+
     ```js
     function throttle(delay,fn){
         var timer;
@@ -624,7 +650,9 @@ Object.prototype.create = function(proto){
 ## 防抖函数
 
 > 触发事件后在 n 秒内函数只能执行一次，如果在 n 秒内又触发了事件，则会重新计算函数执行时间
+
 1. 普通通用
+
     ```js
     txt.onkeyup = debounce(1000,function(){
         console.log('暂停');
@@ -640,7 +668,9 @@ Object.prototype.create = function(proto){
         }
     }
     ```
+
 2. 立即执行
+
     ```js
     function debounce(delay,fn){
         var timer;
@@ -654,7 +684,9 @@ Object.prototype.create = function(proto){
         }
     }
     ```
+
 3. 两者结合
+
     ```js
     function debounce(delay,fn,immediate){
         var timer;

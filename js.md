@@ -22,15 +22,16 @@
 
 ### 何时使用`===` 何时使用`==`？
 
-此题会考虑的是类型转换，当你确定两个值类型也要相等的时候就使用`===`，使用`==`时
+此题会考虑的是类型转换，当你确定两个值类型也要相等的时候就使用`===`，使用`==`时  
 
-```JavaScript
-null == undefined
-'1' == 1
-0 == ''
-0 == false
-1 == true
-```
+    ```javascript
+
+    null == undefined
+    '1' == 1
+    0 == ''
+    0 == false
+    1 == true
+    ```
 
 ### 解决js浮点丢失问题
 
@@ -46,16 +47,16 @@ Object,Array,Boolean,Number,String,Function,Date,RegExp,Error
 
 ### 如何准确判断一个变量是数组类型？
 
-```JavaScript
-var arr = [1,2,3];
-arr instanceof Array //true
+    ```JavaScript
+    var arr = [1,2,3];
+    arr instanceof Array //true
 
-//es5
-Array.isArray(arr); //true
+    //es5
+    Array.isArray(arr); //true
 
-Object.prototype.toString().call() // [Object Array]
+    Object.prototype.toString().call() // [Object Array]
 
-```
+    ```
 
 ## 原型
 
@@ -67,12 +68,12 @@ Object.prototype.toString().call() // [Object Array]
 
 ### 画出下题的完整原型链
 
-```JavaScript
-function Person(name){
-    this.name = name;
-}
-var p = new Person('张三');
-```
+    ```JavaScript
+    function Person(name){
+        this.name = name;
+    }
+    var p = new Person('张三');
+    ```
 
  ![image](./images/1.png)
 
@@ -86,13 +87,15 @@ var p = new Person('张三');
 
 ### 类的声明
 
-1. 普通function
+1. 普通function  
+
     ```javascript
     function Person(name,age){
         this.name = name;
         this.age = age;
     }
     ```
+
 2. ES6 class声明
     ```javascript
     class Person(){
@@ -107,6 +110,7 @@ var p = new Person('张三');
 
 1. call/apply
     ```javascript
+    
     function Parent(){
         this.name = 'Parent';
     }
@@ -115,9 +119,11 @@ var p = new Person('张三');
         this.type = 'Child';
     }
     ```
+
     缺点：子类拿不到父类原型中的方法
 
 2. 利用原型继承
+
     ```javascript
     function Parent(){
         this.name = 'Parent';
@@ -127,6 +133,7 @@ var p = new Person('张三');
     }
     Child.prototype = new Parent();
     ```
+
     缺点：constoructor并不指向子类构造函数，Child多个实例引用同一个对象，这就造成修改一个实例继承中的属性，其他实例继承的属性也会跟着变动
 
 3. 组合方式
