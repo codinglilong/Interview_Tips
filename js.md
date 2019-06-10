@@ -569,3 +569,11 @@ JSONP 利用DOM中的script标签src属性来请求，请求中带有参数callb
 2. npm中获取
 3. 构建工具自动化，使用npm成本低
 4. Commonjs不会异步加载js，而是同步一次性加载出来
+
+### export 和export default
+
+> `export default`命令用于指定模块的默认输出。一个模块只能有一个默认输出，因此`export default`命令只能使用一次。所以，`import`命令后面才不用加大括号，因为只可能唯一对应`export default`命令。
+
+1. `export`是多个,`import`就要写对`export`导出出来的名称
+2. `export default` 单独导出来的，`import`可以自己取名
+3. `export default` 不能使用花括号
