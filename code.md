@@ -597,6 +597,13 @@ function limit(arr,num){
     var index = newArr.indexOf(Math.min.apply(null,newArr));
     return arr[index];
 }
+//第二种
+function limit(arr,num){
+  let newArr = arr.map(i=>Math.abs(i-num))
+  const index = newArr.indexOf(Math.min(...newArr))
+  return arr[index]
+}
+
 console.log(limit(arr,10));
 ```
 
@@ -759,6 +766,7 @@ Function.prototype.bind = function(context){
 ## call的实现
 
 ```js
+//第一种
 Function.prototype.call = function(context){
     var obj = context || window;
     var args = [];
@@ -766,8 +774,18 @@ Function.prototype.call = function(context){
         args.push('arguments['+i+']');
     }
     obj.fn = this;
+    //obj.fn(arguments[1],arguments[2])
     eval('obj.fn('+args+')');
     delete obj.fn;
+}
+//第二种
+Function.prototype.call = function(context){
+    context = context || window;
+    context.fn = this;
+    const args = [...arguments].slice(1);
+    const result = context.fn(...args)
+    delete context.fn;
+    return result
 }
 ```
 
