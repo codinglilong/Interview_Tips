@@ -1,0 +1,151 @@
+# js手写题
+
+## Object.create实现
+
+```js
+Object.prototype.create = function(proto){
+    function F(){}
+    F.prototype = proto;
+    return new F();
+}
+
+```
+
+## bind
+
+```js
+Function.prototype.bind=function(context){
+  context = context || window;
+  const self = this; //保存原函数
+  const args = [].slice.call(arguments,1); //把参数变为数组进行处理
+  return function(){
+    const selfArgs = [].slice.call(arguments);// 把返回后的函数参数变为数组
+    return self.apply(context,[].concat(args,newArgs)) //执行保存的原函数并且绑定this，合并参数
+  }
+}
+```
+
+## call两种方式
+
+1. 第一种不使用高级api
+
+    ```js
+    Function.prototype.call = function (context) {
+      context = context || window;
+      context.fn = this;
+      let args = [];
+      for (let i = 1; i <= arguments.length; i++) {
+        args.push('arguments[' + i + ']');
+      }
+      const result = eval('context.fn(' + args + ')');
+      delete context.fn;
+      return result
+    }
+    ```
+
+2. 第二种
+
+    ```js
+    Function.prototype.call = function(context){
+      context = context || window;
+      context.fn = this;
+      let args = [...arguments].slice(1);
+      const result = context.fn(...args);
+      delete context.fn;
+      return result
+    }
+    ```
+
+## 手写apply
+
+1. 第一种
+
+    ```js
+    Function.prototype.apply1 = function (context, params) {
+      context = context || window;
+      context.fn = this;
+      const result = context.fn(...params);
+      delete context.fn;
+      return result;
+    ```
+
+2. 第二种
+
+    ```js
+    Function.prototype.apply1 = function (context, params) {
+      context = context || window;
+      context.fn = this;
+      let args = [];
+      if (params instanceof Array) {
+        for (let i = 0; i < params.length; i++) {
+          args.push('params[' + i + ']')
+        }
+      }
+      const result = eval('context.fn(' + args + ')');
+      delete context.fn;
+      return result
+    }
+    ```
+
+## 节流函数 throttle
+
+> 连续触发事件但是在 n 秒中只执行一次函数
+
+1. 第一种利用时间戳立即执行,缺点是最后的输入无法捕捉
+
+   ```js
+   function throttle(delay,fn){
+      let previous = 0;
+      return function(){
+        let now = Date.now();
+        if(now - previous > delay){
+          fn.apply(this,arguments);
+          previous = now;
+        }
+      }
+    }
+   ```
+
+2. 第二种不能立即执行
+
+    ```js
+    function throttle(delay,fn){
+      const timer;
+      return function(){
+        if(timer) return;
+        const self = this;
+        timer = setTimeout(function(){
+          timer = null;
+          fn.apply(self,arguments);
+        },delay);
+      }
+    }
+    ```
+
+3. 第三种立即执行，并且最后一次也能正确执行
+
+    ```js
+    function throttle(delay,fn){
+      let previous=0;
+      let now = 0;
+      let timer;
+      return function(){
+        now =+ Date.now();
+        if(now-previous > delay){
+          if(timer){
+            clearTimeout(timer);
+            timer = null;
+          }
+          fn.apply(this,arguments);
+          previous = now;
+        }else if(!timer){
+          const self=this;
+          timer = setTimeout(function(){
+            timer = null;
+            fn.apply(self,arguments);
+            previous = now;
+          },delay)
+        }
+      }
+    }
+    ```
