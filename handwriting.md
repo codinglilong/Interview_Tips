@@ -149,3 +149,41 @@ Function.prototype.bind=function(context){
       }
     }
     ```
+
+## 防抖函数 debounce
+
+> 触发事件后在 n 秒内函数只能执行一次，如果在 n 秒内又触发了事件，则会重新计算函数执行时间
+
+1. 第一种不能立即执行
+
+    ```js
+    function debounce(delay,fn){
+      let timer;
+      return function(){
+        clearTimeout(timer);
+        const self = this;
+        timer = setTimeout(function(){
+          fn.apply(self,arguments);
+        },delay)
+      }
+    }
+    ```
+
+2. 第二种够用
+   
+   ```js
+   function debounce(delay,fn){
+     let timer;
+     return function(){
+       if(!timer){ //首次进入执行
+         fn.apply(this,arguments);
+       }
+       const self = this;
+       clearTimeout(timer);
+       timer = setTimeout(function(){
+         fn.appply(self,arguments);
+         timer = null;
+       },delay)
+     }
+   }
+   ```
