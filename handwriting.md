@@ -170,7 +170,7 @@ Function.prototype.bind=function(context){
     ```
 
 2. 第二种够用
-   
+
    ```js
    function debounce(delay,fn){
      let timer;
@@ -187,3 +187,57 @@ Function.prototype.bind=function(context){
      }
    }
    ```
+
+## 斐波那契数列
+
+1. 第一种有性能问题最简单方式
+
+    ```js
+    function fb(n){
+      if(n<=1){
+        return n;
+      }
+      return fb(n-1) + fb(n-2)
+    }
+    ```
+
+2. 第二种动态规划
+
+    ```js
+    function fb(n){
+      let arr = Array(n+1).fill(null);
+      arr[0]=0;
+      arr[1]=1;
+      for(let i =2;i<arr.length;i++){
+        arr[i] = arr[i-1] + arr[i-2];
+      }
+      return arr[n]
+    }
+    ```
+
+3. 最简洁
+
+    ```js
+    function fb(n,res1=1,res2=1){
+      if(n<=2){
+        return res2;
+      }
+      return fb(n-1,res2,res1+res2)
+    }
+    ```
+
+4. 效率最好的
+
+    ```js
+    function fb(n){
+      let res1=0;
+      let res2=1;
+      let sum= res1+res2;
+      for(let i =2; i<=n; i++){
+        sum=res1 +res2;
+        res1=res2;
+        res2=sum;
+      }
+      return sum
+    }
+    ```
