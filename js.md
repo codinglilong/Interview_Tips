@@ -60,11 +60,11 @@ Object,Array,Boolean,Number,String,Function,Date,RegExp,Error
 
 ## 原型
 
-每个函数都有一个`prototype`属性，这个属性是一个指针，指向一个对象,这个就是原型对象，它里面有一个属性`construcotr`属性，其值指向函数本身，`prototype`可以自定义增加许多属性。
+每个函数都有一个`prototype`属性，这个属性是一个指针，指向一个对象,这个就是原型对象，它里面有一个属性`construcotr`属性，其值指向函数本身，`prototype`可以自定义增加许多属性。实例化这个函数，实例对象就能继承构造器函数上的对象和方法。
 
 ## 原型链
 
-每个函数或者对象都有一个`__proto__`隐藏属性，这个引用了创建这个对象的函数的`prototype`，这样这个对象就和创建它的函数关联起来。如果这个对象本身没有这个属性和方法，它就会顺着`__proto__`向创建它的函数的原型中查找。
+每个函数或者对象都有一个`__proto__`隐藏属性，这个引用了创建这个对象的函数的`prototype`，这样这个对象就和创建它的函数关联起来。如果这个对象本身没有这个属性和方法，它就会顺着`__proto__`向创建它的函数的原型中查找。这样就行了原型链。
 
 ### 画出下题的完整原型链
 
@@ -280,7 +280,7 @@ function ajax(options){
     var success = options.success;
     var error = options.error;
     if(url){
-        var xhr = XMLHttpRequest? new XMLHttpRequest : new window.ActiveXObject('Microsoft.XMLHTTP');
+        var xhr = XMLHttpRequest? new XMLHttpRequest() : new window.ActiveXObject('Microsoft.XMLHTTP');
         var dataArr = [];
         for(var k in data){
             dataArr.push(k+'='+data[k]);
