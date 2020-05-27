@@ -1,18 +1,23 @@
 # webpack记录
+
 ## webpack-dev-server好处
+
 devServer会在内存中生成一个打包好的`bundle.js`，存放的路径是根目录下`./bundle.js`,专供开发时使用，打包效率高，修改代码后会自动重新打包以及刷新浏览器，开发人员体验更好。
 
  ## webpack production模式下的打包优化
+
  1. tree shaking剔除没有用到的代码
  2. scope hoisting 分析模块关系，推断结果，使webpack打包出来的代码文件更小。
  3. 代码压缩、混淆
 
 ## tree shaking
+
  tree shaking是一个术语，通常用于打包时移除javascript中未引用的代码。其原理是依赖ES6模块系统中的`import`和`export`的静态结构特征
 
  开发时引入一个模块后，如果只使用其中的一个功能，上线打包时只会把用到的功能打包进bundle，其他没用到的功能都不会打包进来，可是现实最基础的优化
 
  ## scope hoisting
+
  scope hoisting的作用是将模块之间的关系进行结果推测，可以将webpack打包出来的代码文件更小、运行的更快。
 
  scope hoisting的实现原理其实很简单：分析出  模块之间的依赖关系，尽可能的把打散的模块合并到一个函数中去，但前提是不能造成代码冗余。因此只有那些被引用了一次的模块才能被合并
@@ -54,6 +59,7 @@ optimization:{
 `new webpack.IgnorePlugin(/\.\/locale/,/moment/)`
 
 然后手动引入中文语言包，设置语言
+
 ```js
 import moment from 'moment'
 import 'moment/locale/zh-cn'
@@ -61,6 +67,7 @@ moment.locale('zh-CN')
 ```
 
 ## 了解webpack打包原理
+
 当webpack处理应用程序时，它会从入口文件开始递归地构建一个依赖关系图，其中包含应用程序需要的每一个模块，然后将所有这些模块打包成一个或多个bundle。
 
 webpack打包步骤：

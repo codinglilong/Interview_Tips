@@ -492,35 +492,6 @@ for (var i = 0; i < 3; i++) {
     }
     ```
 
-## 斐波那契数列
-
-```javascript
-//1,1,2,3,5,8,13,21
-//基础
-function fb1(n){
-    if(n<=2) return 1
-    return fb1(n-1)+fb1(n-2)
-}
-
-//优化
-function fb2(n,res1 =1,res2=1){
-    if(n<=2) return res2
-    return fb2(n-1,res2,res1 + res2)
-}
-
-//最笨的方法
-function fb3(n){
-    let res1 = 1;
-    let res2 = 1;
-    let sum = res1;
-    for(let i=2;i<n;i++){
-        sum = re1 +res2;
-        res1=res2;
-        res2=sum;
-    }
-    return sum
-}
-```
 
 ## 冒泡排序
 
