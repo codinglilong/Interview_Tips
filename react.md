@@ -16,26 +16,6 @@
 3. 组件首字母必须大写，元素则时小写
 4. 元素使用`React.createElement()`或者`React.cloneElement()`创建，组件时使用`React.createClass()`和ES6 class 或者无状态组件
 
-## React 15以下的生命周期
-
-实例化：
-
-1. getDefaultProps
-2. getInitialState
-3. componentWillMount()
-4. componentDidMount()
-
-存在期：
-
-1. componentWillReceiveProps(nextProps)
-2. shouldComponentUpdate(nextProps,nextState) 需要返回true才能继续执行下面的代码
-3. componentWillUpdate()
-4. componentDidUpdate()
-
-卸载
-
-1. componentWillUnmount()
-
 ## 什么是jsx
 
 jsx 其实把类似`HTML`的结构转换成`javascript`的对象结构
@@ -243,6 +223,59 @@ react-redux在redux的基础上，还要关注的是Provider和connect
 6. 重新拿到数据和模板生成新的虚拟dom
 7. 比较原始的虚拟dom和新的虚拟dom的区别,进行替换或者删除
 8. 然后用更新过后的虚拟dom构建成真实的dom
+
+
+## React生命周期
+
+### React 15以下的生命周期
+
+实例化：
+
+1. `constructor`
+2. `componentWillMount`
+3. `render`
+4. `componentDidMount`
+
+
+`props` 或者 `states`状态发生改变:
+
+1. `componentWillReceiveProps` 如果是states状态发生改变是不会触发这个生命周期
+2. `shouldComponentUpdate(nextProps,nextState)` 如果是true会有后续生命周期，如果false就没有后续了
+3. `componentWillUpdate`
+4. `render`
+5. `componentDidUpdate`
+
+卸载
+
+1. `componentWillUnmount`
+
+### React 16版本的class组件生命周期
+
+实例化：
+
+1. `constructor`
+2. `static getDerivedStateFromProps(nextProps,prevState)`
+
+   一个静态函数，静态函数中不能使用this访问到class
+   接收父组件传递过来的 props 和组件之前的状态，返回一个对象来更新 state 或者返回 null 来表示接收到的 props 没有变化，不需要更新 state
+
+3. `render`
+4. `componentDidMount`
+
+更新时：
+
+1. `static getDerivedStateFromProps(nextProps,prevState)`
+2. `shouldComponentUpdate` 如果是true会有后续生命周期，如果false就没有后续了
+3. `render`
+4. `getSnapshotBeforeUpdate(prevProps, prevState)`
+
+    接收父组件传递过来的 props 和组件之前的状态,此方法必须有返回值，返回值作为第三个参数传递给`componentDidUpdate`，必须和 `componentDidUpdate` 一起使用，否则会报错
+
+5. `componentDidUpdate`
+
+卸载
+
+1. `componentWillUnmount()`
 
 ## Fiber
 
