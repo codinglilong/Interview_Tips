@@ -255,23 +255,58 @@ react-redux在redux的基础上，还要关注的是Provider和connect
 
 1. `constructor`
 2. `static getDerivedStateFromProps(nextProps,prevState)`
-
-   一个静态函数，静态函数中不能使用this访问到class
-   接收父组件传递过来的 props 和组件之前的状态，返回一个对象来更新 state 或者返回 null 来表示接收到的 props 没有变化，不需要更新 state
-
 3. `render`
 4. `componentDidMount`
 
 更新时：
 
 1. `static getDerivedStateFromProps(nextProps,prevState)`
-2. `shouldComponentUpdate` 如果是true会有后续生命周期，如果false就没有后续了
+
+    一个静态函数，静态函数中不能使用this访问到class
+
+    当父组件和自己本身状态改变时：
+
+    `nextProps`:最新的父组件传过来的`props`
+    `prevState`:当前自己组件最新的的`state`
+      返回一个对象来更新 `state` 或者返回 `null` 来表示接收到的 `props` 没有变化，不需要更新 `state`
+
+2. `shouldComponentUpdate(nextProps, nextState)`
+
+    当父组件状态变更时：
+
+    `nextProps`:最新的父组件传过来的`props`,当前的`this.props`是上一次的`props`
+
+    `nextState`:当前最新的`state`,当前的`this.state`是最新的`state`
+
+    当自己组件状态变更时：
+
+    `nextProps`:最新的父组件传过来的`props`,当前的`this.props`最新的父组件传过来的`props`
+
+    `nextState`:当前最新的`state`,当前的`this.state`是上一次的`state`
+
+    如果是true会有后续生命周期，如果false就没有后续了    
+
 3. `render`
+
 4. `getSnapshotBeforeUpdate(prevProps, prevState)`
+
+    当父组件状态变更时：
+
+    `prevProps`:最新的父组件上一次传过来的`props`,当前的`this.props`是最新的`props`
+
+    `prevState`:当前最新的`state`,当前的`this.state`是最新的`state`
+
+    当自己组件状态变更时：
+
+    `prevProps`:最新的父组件传过来的`props`,当前的`this.props`最新的父组件传过来的`props`
+
+    `prevState`:是上一次的`state`,当前的`this.state`是最新`state`
 
     接收父组件传递过来的 props 和组件之前的状态,此方法必须有返回值，返回值作为第三个参数传递给`componentDidUpdate`，必须和 `componentDidUpdate` 一起使用，否则会报错
 
-5. `componentDidUpdate`
+5. `componentDidUpdate`(prevProps, prevState, xx)
+
+    基本上同`getSnapshotBeforeUpdate`一致，第三个可选参数是`getSnapshotBeforeUpdate`返回的值
 
 卸载
 
