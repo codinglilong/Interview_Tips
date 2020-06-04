@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+  const arr = [71899703, 200, 6, 91, 425, 4, 67407, 7, 96488, 6, 4, 2, 7, 31064, 9, 7920, 1, 34608557, 27, 72, 18, 81];
+  const newArr = arr.map(item => {
+    return {
+      value: item,
+      weight: item.toString().split('').reduce((a, b) => a + b*1, 0)
+    }
+  });
+  console.log(newArr.sort((a,b)=>a.weight -b.weight))
+</script>
+
+</html>
