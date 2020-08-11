@@ -1,5 +1,27 @@
 # js手写题
 
+## 简单深拷贝
+
+```js
+function deepClone(obj) {
+  if (typeof obj !== 'object' || obj === null) {
+    return obj;
+  }
+  let newObj;
+  if (Array.isArray(obj)) {
+    newObj = [];
+  } else {
+    newObj = {};
+  }
+  for (let item in obj) {
+    if (obj.hasOwnProperty(item)) {
+      newObj[item] = deepClone(obj[item])
+    }
+  }
+  return newObj
+}
+```
+
 ## Object.create实现
 
 ```js
@@ -241,3 +263,59 @@ Function.prototype.bind=function(context){
       return sum
     }
     ```
+
+## 简单的Promise
+
+```js
+function MyPromise(executor){
+  this.value = null;
+  this.reason =null;
+  this.status = "pending";
+  this.onResolvedQueue = [];
+  this.onRejectedQueue = [];
+
+  const self = this;
+  function resolve(value){
+    if(self.status !== 'pending'){
+      return;
+    }
+    self.value = value;
+    self.status = 'resolved';
+    setTimeout(function(){
+      self.onResolvedQueue.forEach(resolved=>resolved(value));
+    });
+  }
+  function reject(reason){
+    if(self.status !== 'pending'){
+      return;
+    }
+    self.value = value;
+    self.status = 'rejected';
+    setTimeout(function(){
+      self.onRejectedQueue.forEach(rejected=>rejected(reason));
+    });
+  }
+
+  executor(resolve,reject);
+}
+
+MyPromise.then = function(onResolved,onRejected){
+  const self = this;
+  if(typeof onResolved !== 'function'){
+    onResolved = function(x){return x};
+  }
+  if(typeof onRejected !== 'function'){
+    onRejected = function(e){ throw e }
+  }
+
+  if(this.status === 'resolved'){
+    onResolved(this.value)
+  }else if(this.status === 'rejected'){
+    onRejected(this.reason);
+  }else if(this.status === 'pending'){
+    this.onResolvedQueue.push(onResolved);
+    this.onRejectedQueue.push(onRejected);
+  }
+  return this;
+}
+```

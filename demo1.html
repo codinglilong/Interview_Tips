@@ -12,6 +12,34 @@
 </body>
 <script>
 
+  function deepClone(obj) {
+    if (typeof obj !== 'object' || obj === null) {
+      return obj;
+    }
+    let newObj;
+    if (Array.isArray(obj)) {
+      newObj = [];
+    } else {
+      newObj = {};
+    }
+    for (let item in obj) {
+      if (obj.hasOwnProperty(item)) {
+        newObj[item] = deepClone(obj[item])
+      }
+    }
+    return newObj
+  }
+
+  const obj = {
+    name:"张三",
+    age:50,
+    like:["苹果","香蕉"],
+    children:{
+      name:"李四",
+      age:20
+    }
+  }
+  console.log(deepClone(obj))
 </script>
 
 </html>
