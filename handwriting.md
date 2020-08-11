@@ -319,3 +319,49 @@ MyPromise.then = function(onResolved,onRejected){
   return this;
 }
 ```
+
+## 冒泡排序
+
+```js
+var arr=[7,4,8,3,1];
+function bubbleSort(arr){
+    for (let i = 0; i < arr.length-1; i++) {
+        var flag=true;
+        for (let j = 0; j < arr.length-i-1; j++) {
+            if(arr[j]>arr[j+1]){
+                var temp=arr[j+1];
+                arr[j+1]=arr[j];
+                arr[j]=temp;
+                flag=false;
+            }
+        }
+        if(flag){
+            break;
+        }
+    }
+    return arr;
+}
+console.log(bubbleSort(arr));
+```
+
+## 快速排序
+
+```js
+var arr=[5,8,4,7,2,6];
+function quickSort(arr){
+    if(arr.length<=1) return arr;
+    var middleIndex = Math.floor(arr.length/2);
+    var middleValue = arr.splice(middleIndex,1);
+    var left = [];
+    var right = [];
+    for (let i = 0; i < arr.length; i++) {
+        if(middleValue >= arr[i]){
+            left.push(arr[i])
+        }else{
+            right.push(arr[i])
+        }
+    }
+    return quickSort(left).concat(middleValue,quickSort(right));
+}
+console.log(quickSort(arr));
+```
