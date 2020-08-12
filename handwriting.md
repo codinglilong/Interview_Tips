@@ -365,3 +365,26 @@ function quickSort(arr){
 }
 console.log(quickSort(arr));
 ```
+
+## 约瑟夫环
+
+> 编号为1到100的一百个人围成一圈，以123 123的方式进行报数，数到3的人自动退出圈子，剩下的人继续报数，问最后剩下的人编号为几？
+
+```js
+const numbers = Array.from({ length: 100 }, (v, k) => k + 1);
+function fn() {
+  let index = 0;
+  while (numbers.length > 2) {
+    let outPlayerNum = 0, len = numbers.length;
+    for (let i = 0; i < len; i++) {
+      index++;
+      if (index === 3) {
+        index = 0;
+        numbers.splice(i - outPlayerNum, 1)
+        outPlayerNum++;
+      }
+    }
+  }
+}
+fn()
+```
