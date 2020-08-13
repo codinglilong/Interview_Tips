@@ -12,34 +12,35 @@
 </body>
 <script>
 
-  function deepClone(obj) {
-    if (typeof obj !== 'object' || obj === null) {
-      return obj;
+  const numbers = Array.from({ length: 100 }, (v, k) => k + 1);
+  // function fn(n, m) {
+  //   let index = 0;
+  //   while (n.length > 2) {
+  //     for (let i = 1; i <= m; i++) {
+  //       if (i === m) {
+  //         n.splice(index, 1);
+  //       } else {
+  //         if (index > n.length) {
+  //           index = 0;
+  //         } else {
+  //           index++;
+  //         }
+  //       }
+  //     }
+  //   }
+  // }
+  function fn(n, m) {
+    let previous = 0;
+    for (let i = 1; i <= n; i++) {
+      previous = (previous + m) % i
     }
-    let newObj;
-    if (Array.isArray(obj)) {
-      newObj = [];
-    } else {
-      newObj = {};
-    }
-    for (let item in obj) {
-      if (obj.hasOwnProperty(item)) {
-        newObj[item] = deepClone(obj[item])
-      }
-    }
-    return newObj
+    return numbers[previous]
   }
+  console.log(fn(numbers.length, 3))
 
-  const obj = {
-    name:"张三",
-    age:50,
-    like:["苹果","香蕉"],
-    children:{
-      name:"李四",
-      age:20
-    }
-  }
-  console.log(deepClone(obj))
+  // console.log(numbers)
+
+
 </script>
 
 </html>
