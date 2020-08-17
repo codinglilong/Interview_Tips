@@ -80,3 +80,22 @@
 2. 定位元素,`position`的值不为`static`或者`relative`
 3. `display`为以下其中之一的值 `table-cell`, `table-caption`, `inline-block`, `flex`, 或者 `inline-flex`.
 4. `overflow`的值不为`visible`
+
+
+
+## BFC 主要被用来解决以下常见的布局问题：
+
+- 清除浮动；
+- 阻止 margin 发生重叠；
+- 阻止元素被浮动的元素覆盖。
+
+
+
+## css预处理提供了哪些好处
+
+1. 嵌套代码的能力，通过嵌套来反映不同css属性之间的层级关系
+2. 支持定义css变量
+3. 提供计算函数
+4. 允许对代码片段进行extend和mixin
+5. 支持循环语句的使用
+6. 支持将css文件模块化，实现服用
