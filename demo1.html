@@ -12,6 +12,35 @@
 </body>
 <script>
 
+  const numbers = Array.from({ length: 100 }, (v, k) => k + 1);
+  // function fn(n, m) {
+  //   let index = 0;
+  //   while (n.length > 2) {
+  //     for (let i = 1; i <= m; i++) {
+  //       if (i === m) {
+  //         n.splice(index, 1);
+  //       } else {
+  //         if (index > n.length) {
+  //           index = 0;
+  //         } else {
+  //           index++;
+  //         }
+  //       }
+  //     }
+  //   }
+  // }
+  function fn(n, m) {
+    let previous = 0;
+    for (let i = 1; i <= n; i++) {
+      previous = (previous + m) % i
+    }
+    return numbers[previous]
+  }
+  console.log(fn(numbers.length, 3))
+
+  // console.log(numbers)
+
+
 </script>
 
 </html>

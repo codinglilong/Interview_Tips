@@ -1,5 +1,27 @@
 # js手写题
 
+## 简单深拷贝
+
+```js
+function deepClone(obj) {
+  if (typeof obj !== 'object' || obj === null) {
+    return obj;
+  }
+  let newObj;
+  if (Array.isArray(obj)) {
+    newObj = [];
+  } else {
+    newObj = {};
+  }
+  for (let item in obj) {
+    if (obj.hasOwnProperty(item)) {
+      newObj[item] = deepClone(obj[item])
+    }
+  }
+  return newObj
+}
+```
+
 ## Object.create实现
 
 ```js
@@ -188,56 +210,58 @@ Function.prototype.bind=function(context){
    }
    ```
 
-## 斐波那契数列
+## 简单的Promise
 
-1. 第一种有性能问题最简单方式
+```js
+function MyPromise(executor){
+  this.value = null;
+  this.reason =null;
+  this.status = "pending";
+  this.onResolvedQueue = [];
+  this.onRejectedQueue = [];
 
-    ```js
-    function fb(n){
-      if(n<=1){
-        return n;
-      }
-      return fb(n-1) + fb(n-2)
+  const self = this;
+  function resolve(value){
+    if(self.status !== 'pending'){
+      return;
     }
-    ```
-
-2. 第二种动态规划
-
-    ```js
-    function fb(n){
-      let arr = Array(n+1).fill(null);
-      arr[0]=0;
-      arr[1]=1;
-      for(let i =2;i<arr.length;i++){
-        arr[i] = arr[i-1] + arr[i-2];
-      }
-      return arr[n]
+    self.value = value;
+    self.status = 'resolved';
+    setTimeout(function(){
+      self.onResolvedQueue.forEach(resolved=>resolved(value));
+    });
+  }
+  function reject(reason){
+    if(self.status !== 'pending'){
+      return;
     }
-    ```
+    self.value = value;
+    self.status = 'rejected';
+    setTimeout(function(){
+      self.onRejectedQueue.forEach(rejected=>rejected(reason));
+    });
+  }
 
-3. 最简洁
+  executor(resolve,reject);
+}
 
-    ```js
-    function fb(n,res1=1,res2=1){
-      if(n<=2){
-        return res2;
-      }
-      return fb(n-1,res2,res1+res2)
-    }
-    ```
+MyPromise.then = function(onResolved,onRejected){
+  const self = this;
+  if(typeof onResolved !== 'function'){
+    onResolved = function(x){return x};
+  }
+  if(typeof onRejected !== 'function'){
+    onRejected = function(e){ throw e }
+  }
 
-4. 效率最好的
-
-    ```js
-    function fb(n){
-      let res1=0;
-      let res2=1;
-      let sum= res1+res2;
-      for(let i =2; i<=n; i++){
-        sum=res1 +res2;
-        res1=res2;
-        res2=sum;
-      }
-      return sum
-    }
-    ```
+  if(this.status === 'resolved'){
+    onResolved(this.value)
+  }else if(this.status === 'rejected'){
+    onRejected(this.reason);
+  }else if(this.status === 'pending'){
+    this.onResolvedQueue.push(onResolved);
+    this.onRejectedQueue.push(onRejected);
+  }
+  return this;
+}
+```
