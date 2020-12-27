@@ -16,9 +16,7 @@
 3. 组件首字母必须大写，元素则时小写
 4. 元素使用`React.createElement()`或者`React.cloneElement()`创建，组件时使用`React.createClass()`和ES6 class 或者无状态组件
 
-## 什么是jsx
 
-jsx 其实把类似`HTML`的结构转换成`javascript`的对象结构
 
 ## setState过程
 
