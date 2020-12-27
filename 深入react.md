@@ -133,3 +133,44 @@ getDerivedStateFromProps 不是 componentWillMount 的替代品，而是试图�
 
 #### 更新阶段
 
+![生命周期](./images/12.png)
+
+**为什么要用getDerivedStateFromProps代替ComponentWillReveiceProps?**
+
+React16在强制推行“只用getDerivedStateFromProps来完成props到state的映射”意在确保生命周期函数的行为更加可控可预测，从根源上帮开发者避免不合理的编程方式，避免生命周期的滥用，同时也是在为新的Fiber架构铺路。
+
+**消失的 componentWillUpdate 与新增的 getSnapshotBeforeUpdate**
+
+这个方法和 getDerivedStateFromProps 颇有几分神似，它们都强调了“我需要一个返回值”这回事。区别在于 getSnapshotBeforeUpdate 的返回值会作为第三个参数给到 componentDidUpdate。它的执行时机是在 render 方法之后，真实 DOM 更新之前。在这个阶段里，我们可以同时获取到更新前的真实 DOM 和更新前后的 state&props 信息。getSnapshotBeforeUpdate 要想发挥作用，离不开 componentDidUpdate 的配合。为什么 componentWillUpdate 就非死不可呢？说到底，还是因为它“挡了 Fiber 的路”。
+
+
+
+#### 透过现象看本质：React 16 缘何两次求变？
+
+**Fiber 架构简析**
+
+Fiber 是 React 16 对 React 核心算法的一次重写。Fiber 会使原本同步的渲染过程变成异步的。
+
+在React16之前，每当我们触发一次组件的更新，React都会构建一颗心的虚拟DOM树，通过与上一次的虚拟DOM树进行diff,实现对DOM的定向更新。这个过程是个递归的过程。
+
+同步渲染的递归调用栈是非常深的，只有最底层的调用返回了，整个渲染过程才会开始逐层返回。这个漫长且不可打断的更新过程，将会带来用户体验层面的巨大风险。
+
+同步渲染一旦开始便会牢牢抓住主线程不放，直到递归彻底完成。在这个过程中，浏览器没有办法处理任何渲染之外的事情，会进入一种无法处理用户交互的状态。因此若渲染时间稍微长一点，页面就会面临卡顿卡死的风险。
+
+Fiber会将一个大的更新任务拆解为许多个小任务。每当执行完一个小任务时，渲染线程都会把主线程交回去，看看有没有优先级更高的工作要处理，确保不会出现其他任务被“饿死”的情况，从而避免同步渲染带来的卡顿。在这个过程中渲染线程不在“一去不回头”，而是可以被打断的，这就是所谓的“异步渲染”。
+
+**换个角度看生命工作流**
+
+Fiber架构的重要特征就是可以被打断的异步渲染模式。React16的生命周期被划为render和commit两个阶段，而commit阶段又被细分为pre-commit和commit。
+
++ render阶段：纯净且没有副作用，可能会被React暂停、终止或重新启动。
++ pre-commit阶段：可以读取DOM
++ commit阶段：可以使用DOM，运行副作用，安排更新。
+
+总结：render阶段在执行过程中允许被打断，而commit阶段总是同步执行的。由于render阶段的操作对用户来说其实是“不可见”，用户无感知所以就可以打断或者重启。而commit阶段的操作则涉及真实DOM渲染，所以这个过程必须用同步渲染。
+
+
+
+#### 生命周期“废旧立新”背后的思考
+
+在Fiber机制下componentWillMount、componentWillUpdate、componentWillReceiveProps它们都处于render阶段，都可能重复被执行，而且由于这些API常年被滥用，它们在重复执行的过程中都存在很高的风险。
