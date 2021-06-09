@@ -11,14 +11,92 @@
 
 </body>
 <script>
-  const arr = [71899703, 200, 6, 91, 425, 4, 67407, 7, 96488, 6, 4, 2, 7, 31064, 9, 7920, 1, 34608557, 27, 72, 18, 81];
-  const newArr = arr.map(item => {
-    return {
-      value: item,
-      weight: item.toString().split('').reduce((a, b) => a + b*1, 0)
+  // function stringify(obj) {
+  //   let type = typeof obj;
+  //   if (type !== "object" || type === null) {
+  //     if (/string|undefined|function/.test(type)) {
+  //       obj = '"' + obj + '"';
+  //     }
+  //     return String(obj);
+  //   } else {
+  //     let json = [];
+  //     let isArr = Array.isArray(obj);
+  //     for (let k in obj) {
+  //       let v = obj[k];
+  //       let type = typeof v;
+
+  //       if (/string|undefined|function/.test(type)) {
+  //         v = '"' + v + '"';
+  //       } else if (type === "object") {
+  //         v = stringify(v);
+  //       }
+
+  //       json.push((isArr ? "" : '"' + k + '":') + String(v));
+  //     }
+  //     let arrStr = "[" + String(json) + "]";
+  //     let objStr = "{" + String(json) + "}";
+  //     return isArr ? arrStr : objStr;
+  //   }
+  // }
+
+  function stringify(target) {
+    // write your code
+    let type = typeof target;
+    if (type !== "object" || type === null) {
+      if (/string|undefined|function/.test(type)) {
+        target = '"' + target + '"';
+      }
+      return String(target);
+    } else {
+      let json = [];
+      let isArr = Array.isArray(target);
+      for (let key in target) {
+
+        let value = target[key];
+        let type = typeof value;
+
+        if (/string|undefined|function/.test(type)) {
+          value = '"' + value + '"';
+        } else if (type === "object") {
+          value = stringify(value)
+        }
+        json.push((isArr ? "" : '"' + key + '":') + String(value))
+      }
+      let arrStr = "[" + String(json) + "]";
+      let objStr = "{" + String(json) + "}";
+      return isArr ? arrStr : objStr
     }
-  });
-  console.log(newArr.sort((a,b)=>a.weight -b.weight))
+  }
+
+  console.log(stringify(() => void 0))
+  console.log(stringify(true))
+  console.log(stringify(/\w/))
+  console.log(stringify(12345))
+  console.log(stringify('hello world'))
+  console.log(stringify([1, 2, 3, 4, { a: { value: [true, 'js', 1, null, undefined] } }]))
+
+  // console.log(JSON.stringify(() => void 0))
+  // console.log(JSON.stringify(true))
+  // console.log(JSON.stringify(/\w/))
+  // console.log(JSON.stringify(12345))
+  // console.log(JSON.stringify('hello world'))
+  // console.log(JSON.stringify([1, 2, 3, 4, { a: { value: [true, 'js', 1, null, undefined] } }]))
+
+
+  // 常见的HTTP状态码
+  // js异步发展
+  // 简述下eventloop
+  // 网页性能优化
+  // 1. React在项目中使用多久
+  // 2. React生命周期
+  // 3. React组件与组件如何通讯
+  // 4. class组件与函数组件有什么不同
+  // 5. useEffect和useLayoutEffect区别
+  // 5. React性能优化
+  // 6. 了解过diff过程吗？fiber算法？
+  // 7. 了解过webpack mode（毛得）production 和 区别？
+  // 8. 简单描述下tree shaking
+  // 9. webpack热更新原理
 </script>
 
 </html>
